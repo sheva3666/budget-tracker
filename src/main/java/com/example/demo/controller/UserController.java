@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.security.Principal;
 import java.util.NoSuchElementException;
 
 import com.example.demo.entity.UserEntity;
@@ -24,8 +25,8 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity createUser(@RequestBody UserEntity user) {
 		try {
-			userService.registration(user);
-			return ResponseEntity.ok("Ok");
+			UserEntity createdUser = userService.registration(user);
+			return ResponseEntity.ok(createdUser);
 		} catch (UserAlreadyExistException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		} catch (Exception e) {
